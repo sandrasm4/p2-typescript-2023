@@ -1,5 +1,6 @@
 import { Receta } from "./recetas.ts";
 
+const columnNum = 3;
 const head = (label: string) => `
 <head>
   <meta charset="UTF-8">
@@ -11,7 +12,7 @@ const head = (label: string) => `
       margin: 0;
       padding: 0;
     }
-    .receta {
+    .name {
       font-family: sans-serif;
       display: flex;
       flex-direction: row;
@@ -19,20 +20,32 @@ const head = (label: string) => `
       padding: .4rem;
       border-bottom: 1px solid #ddd;
     }
+    table{
+      width: 100%;
+    }
   </style>
 </head>`;
 
 const renderRecetas = (recetas: Array<Receta>) => {
+  let cont = 0;
   let html = "";
+  html += `<div class="receta">
+  <table>
+    <tr>`;
   for (const receta of recetas) {
-    html += `<div class="receta">
-      <div class="name">
-        <div class="name">${receta.label}</div>
-        <img src="${receta.image}" />
-
-      </div>
-    </div>`;
-  }
+    cont++;
+    html +=`<th>
+            <div class="name">${receta.label} onclick="show(receta)"</div>
+            <a href="index/${receta.label}">
+            <img src="${receta.image}" /><\a>
+            </th>`;
+    if(cont == columnNum){
+      html +=`</tr><tr>`;
+      cont = 0;
+    }     
+  };
+    
+  html +=`</tr></table></div>`;
   return html;
 }
 
@@ -45,3 +58,4 @@ export const render = (recetas: Array<Receta>) => {
   </body>
 </html>`;
 };
+

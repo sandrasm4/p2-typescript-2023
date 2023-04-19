@@ -2,14 +2,54 @@
 export class Receta {
   constructor( 
     public label: string, 
-    public image: string,
-  ) {}
+    public image: string  
+  ){}
+  public details = new RecetaDetails()   
+}
+
+export class RecetaDetails {
+  constructor( 
+    /*public yieldV: string, 
+    public dietLabels: string[],
+    public healthLabels: string[],
+    public cautions: string[],
+    public ingredientLines: string[],
+    public ingredients:Ingredient[],
+    public calories: number,
+    public totalWeight: number,
+    public totalTime: number,
+    public cuisineType: string[],
+    public mealType: string[],
+    public dishType: string[],
+    public digest: Digest[],*/
+  ){};
+}
+
+export class Ingredient {
+  constructor( 
+    public text: string,
+    public quantity: number,
+    public measure: string,
+    public food: string,
+    public weight: number,
+    public foodCategory: string,
+    public image: string
+  ){};
+}
+
+export class Digest {
+  constructor( 
+    public label: string,
+    public total: number,
+    public units: string
+  ){};
 }
 
 export const loadRecetas = async () => {
   //Asian food
   const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Asian&imageSize=REGULAR`);
   const { hits } = (await response.json()) as { hits: any[] };
+  console.log(hits)
   const recetas = hits.map( hit => new Receta(hit.recipe.label, hit.recipe.image) );
 /** 
   //Indian food

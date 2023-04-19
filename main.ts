@@ -6,5 +6,9 @@ import { loadRecetas } from "./recetas.js";
 const recetas = await loadRecetas();
 debugger
 const html = render(recetas);
-await writeFile('recetas.html', html);
+await writeFile('index.html', html);
+
+await writeFile(recetas[0].label+'.html', html);
+
+
 
