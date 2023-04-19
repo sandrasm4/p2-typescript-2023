@@ -28,6 +28,8 @@ const renderRecetas = (recetas: Array<Receta>) => {
     html += `<div class="receta">
       <div class="name">
         <div class="name">${receta.label}</div>
+        <img src="${receta.image}" />
+
       </div>
     </div>`;
   }

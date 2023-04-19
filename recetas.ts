@@ -1,15 +1,27 @@
 
 export class Receta {
-  constructor( public label: string ) {}
+  constructor( 
+    public label: string, 
+    public image: string,
+  ) {}
 }
 
 export const loadRecetas = async () => {
-  const response = await fetch(`https://api.edamam.com/api/recipes/v2/b79327d05b8e5b838ad6cfd9576b30b6?type=public&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8`);
-  const { recipe } = (await response.json()) as { recipe: any };
-  const recetas: Array<Receta> = [];
-  recetas.push(new Receta(recipe.label));
-  console.log(recipe.label);
+  //Asian food
+  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Asian&imageSize=REGULAR`);
+  const { hits } = (await response.json()) as { hits: any[] };
+  const recetas = hits.map( hit => new Receta(hit.recipe.label, hit.recipe.image) );
+/** 
+  //Indian food
+  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Indian&imageSize=REGULAR`);
+
+  //Mexican food
+  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Mexican&imageSize=REGULAR`);
   
+  //Mediterranean food
+  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Mediterranean&imageSize=REGULAR`);
+*/  
+ 
   return recetas;
 };
 
