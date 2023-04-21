@@ -63,7 +63,7 @@ export const loadRecetas = async () => {
   //Asian food
   const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Asian&imageSize=REGULAR`);
   const { hits } = (await response.json()) as { hits: any[] };
-  console.log(hits)
+  
   const recetas = hits.map( hit => new Receta(hit.recipe.label, hit.recipe.image, 
     hit.recipe.dietLabels,
     hit.recipe.yield,
