@@ -1,4 +1,4 @@
-import { Receta } from "./recetas.ts";
+import { Receta, RecetaDetails } from "./recetas.ts";
 
 const columnNum = 3;
 const head = (label: string) => `
@@ -29,15 +29,17 @@ const head = (label: string) => `
 const renderRecetas = (recetas: Array<Receta>) => {
   let cont = 0;
   let html = "";
-  html += `<div class="receta">
+  html += `
+  <link rel="stylesheet" href="styleReceta.css"/>
+  <div class="receta">
   <table>
     <tr>`;
   for (const receta of recetas) {
     cont++;
     html +=`<th>
             <div class="name">${receta.label} onclick="show(receta)"</div>
-            <a href="index/${receta.label}">
-            <img src="${receta.image}" /><\a>
+            <a href="recetas/${receta.label}.html">
+            <img src="${receta.image}"/></a>
             </th>`;
     if(cont == columnNum){
       html +=`</tr><tr>`;
@@ -49,7 +51,46 @@ const renderRecetas = (recetas: Array<Receta>) => {
   return html;
 }
 
-export const render = (recetas: Array<Receta>) => {
+const renderDetalles = (receta: Receta) => {
+  let cont = 0;
+  let html = "";
+  html += `<div class="receta">
+  <p>label:<\p>
+  <p>${receta.label}<\p>
+  <p>image:<\p>
+  <img her=${receta.image}\>
+  <img src="${receta.image}" alt="${receta.label}"\>
+  <p>Diet Labels:<\p>
+  <p>${receta.dietLabels}<\p>
+  <p>yieldV:<\p>
+  <p>${receta.yieldV}<\p>
+  <p>healthLabels:<\p>
+  <p>${receta.healthLabels}<\p>
+  <p>cautions:<\p>
+  <p>${receta.cautions}<\p>
+  <p>ingredientLines:<\p>
+  <p>${receta.ingredientLines}<\p>
+  <p>ingredients:<\p>
+  <p>${receta.ingredients}<\p>
+  <p>calories:<\p>
+  <p>${receta.calories}<\p>
+  <p>totalWeight:<\p>
+  <p>${receta.totalWeight}<\p>
+  <p>totalTime:<\p>
+  <p>${receta.totalTime}<\p>
+  <p>cuisineType:<\p>
+  <p>${receta.cuisineType}<\p>
+  <p>mealType:<\p>
+  <p>${receta.mealType}<\p>
+  <p>dishType:<\p>
+  <p>${receta.dishType}<\p>
+   
+    
+  </tr></table></div>`;
+  return html;
+}
+
+export const renderIndex = (recetas: Array<Receta>) => {
   return `
 <html>
   ${head("Recetas List")}
@@ -58,4 +99,16 @@ export const render = (recetas: Array<Receta>) => {
   </body>
 </html>`;
 };
+
+export const renderReceta = (receta: Receta) => {
+  return `
+<html>
+  ${head("Recetas List")}
+  <body>
+    ${renderDetalles(receta)}
+  </body>
+</html>`;
+};
+
+
 

@@ -1,14 +1,21 @@
 import { writeFile } from "fs/promises";
-import { render } from "./render.js";
-import { loadRecetas } from "./recetas.js";
+import { renderReceta, renderIndex } from "./render.js";
+import { Receta, loadRecetas } from "./recetas.js";
+import { dir } from "console";
 
 
 const recetas = await loadRecetas();
 debugger
-const html = render(recetas);
+const html = renderIndex(recetas);
 await writeFile('index.html', html);
+console.log("sandra")
 
-await writeFile(recetas[0].label+'.html', html);
+for ( const r of recetas){
+    const html = renderReceta(r);
+    await writeFile("recetas/"+r.label+'.html', html);
+}
+
+
 
 
 
