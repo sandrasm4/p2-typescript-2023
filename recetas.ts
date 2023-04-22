@@ -3,8 +3,37 @@ export class Receta {
   constructor( 
     public label: string, 
     public image: string,
-    public dietLabels: string[],
+    public details: {
+        yieldV: string, 
+        dietLabels: string[],
+        healthLabels: string[],
+        cautions: string[],
+        ingredientLines: string[],
+        ingredients:{
+          text: string,
+          quantity: number,
+          measure: string,
+          food: string,
+          weight: number,
+          foodCategory: string,
+          image: string
+        }[],
+        calories: number,
+        totalWeight: number,
+        totalTime: number,
+        cuisineType: string[],
+        mealType: string[],
+        dishType: string[],
+        digest: Digest[],
+    }
+  ){}   
+}
+
+
+export class RecetaDetails {
+  constructor( 
     public yieldV: string, 
+    public dietLabels: string[],
     public healthLabels: string[],
     public cautions: string[],
     public ingredientLines: string[],
@@ -16,27 +45,7 @@ export class Receta {
     public mealType: string[],
     public dishType: string[],
     public digest: Digest[],
-  ){}
-  public details = new RecetaDetails()   
-}
-
-export class RecetaDetails {
-  constructor( 
-    //public yieldV: string, 
-    /*,
-    public healthLabels: string[],
-    public cautions: string[],
-    public ingredientLines: string[],
-    public ingredients:Ingredient[],
-    public calories: number,
-    public totalWeight: number,
-    public totalTime: number,
-    public cuisineType: string[],
-    public mealType: string[],
-    public dishType: string[],
-    public digest: Digest[],*/
   ){};
-  public dietLabels = [];
 }
 
 export class Ingredient {
@@ -59,25 +68,32 @@ export class Digest {
   ){};
 }
 
-export const loadRecetas = async () => {
+export const loadRecetas = async (origen: string) => {
   //Asian food
-  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Asian&imageSize=REGULAR`);
+  const response = await fetch("https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType="+origen+"&imageSize=REGULAR");
   const { hits } = (await response.json()) as { hits: any[] };
   
-  const recetas = hits.map( hit => new Receta(hit.recipe.label, hit.recipe.image, 
-    hit.recipe.dietLabels,
-    hit.recipe.yield,
-    hit.recipe.healthLabels,
-    hit.recipe.cautions,
-    hit.recipe.ingredientLines,
-    hit.recipe.ingredients,
-    hit.recipe.calories,
-    hit.recipe.totalWeight,
-    hit.recipe.totalTime,
-    hit.recipe.cuisineType,
-    hit.recipe.mealType,
-    hit.recipe.dishType,
-    hit.recipe.digest,
+  const recetas = hits.map( hit => new Receta(hit.recipe.label, hit.recipe.image,
+  { 
+    yieldV: hit.recipe.yield,
+    dietLabels: hit.recipe.dietLabels,
+    healthLabels: hit.recipe.healthLabels,
+    cautions: hit.recipe.cautions,
+    ingredientLines: hit.recipe.ingredientLines,
+    ingredients: hit.recipe.ingredients,
+    calories: hit.recipe.calories,
+    totalWeight: hit.recipe.totalWeight,
+    totalTime: hit.recipe.totalTime,
+    cuisineType: hit.recipe.cuisineType,
+    mealType: hit.recipe.mealType,
+    dishType: hit.recipe.dishType,
+    digest: hit.recipe.digest,
+  }
+ 
+ /* ingredients: hit.recipe.ingredients.map(ingredient => new Ingredient(
+    ingredient.text, ingredient.quantity, ingredient.measure, ingredient.food,
+    ingredient.weight, ingredient.foodCategory, ingredient.image)),
+   */ 
   ) ); 
   
   
@@ -94,6 +110,8 @@ export const loadRecetas = async () => {
  
   return recetas;
 };
+
+//const buttonToBeClicked = document.getElementById("example-button");
 
 
 

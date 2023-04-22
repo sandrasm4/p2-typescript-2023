@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
     "lib": [
-      "ESNext"
+      "ESNext",
+      "ES6",
+      "dom"
     ],
     "module": "esnext",
-    "target": "esnext",
+    "target": "es2017",
     "moduleResolution": "nodenext",
     "strict": true,
     "downlevelIteration": true,
@@ -14,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "types": [
-      "bun-types" 
+      "bun-types" // add Bun global
     ]
   }
 }
