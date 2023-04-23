@@ -102,75 +102,76 @@ const renderIngredients = (ingredients: Ingredient[]) => {
     html+=`</table></div>`;
   return html;
 }
+
 const renderHow = (detail: RecetaDetails) => {
   let html = "";
   html += `
   <div id="how" class="tabcontent">
-    <table>
-      <td><img src="https://static.thenounproject.com/png/4502200-200.png"/></td>
-      <td><p>Yield: ${detail.yieldV} </p>
-      <p>Total Time: ${detail.totalTime} </p></td>
-    </table>
-    <p>Instructions:</p><ol>`
-    if(detail.instructions){
-      for(let inst of detail.instructions){
+  <table>
+    <td><img src="https://static.thenounproject.com/png/4502200-200.png"/></td>
+    <td><p>Yield: ${detail.yieldV} </p>
+    <p>Total Time: ${detail.totalTime} </p></td>
+  </table>
+  <p>Instructions:</p><ol>`
+  if(detail.instructions){
+    for(let inst of detail.instructions){
         html += `<li>${inst}</li>`
-      }
-    }else{
+    }
+  }else{
       html += `<li>The API doesn't have this information yet.</li>
       <li>Put all the ingredients together and mix them.
       <img src="https://cdn-icons-png.flaticon.com/512/5622/5622660.png"/></li>`
-    }
-    html+=`</ol></div>`
-    return html;
   }
+  html+=`</ol></div>`
+  return html;
+}
 
-  const renderNutrients = (digest: Digest[]) => {
-    let html = "";
-    html += `
-    <div id="nutrients" class="tabcontent">
-      <table>`
-      for(let d of digest){
-        html+= `<tr>
-          <td>${d.label}</td>
-          <td>${d.total}`
-        if(d.units){
-          html+=d.units
-        }
-        html+= `  </td>
-        </tr>`
-      } 
-      html+=`</table></div>`
-      return html;
-  }
-
-  const renderScript = () => {
-    return `<script>
-      function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
+const renderNutrients = (digest: Digest[]) => {
+  let html = "";
+  html += `
+  <div id="nutrients" class="tabcontent">
+    <table>`
+    for(let d of digest){
+      html+= `<tr>
+        <td>${d.label}</td>
+        <td>${d.total}`
+      if(d.units){
+        html+=d.units
       }
-  </script>`;
+      html+= `  </td>
+      </tr>`
+    } 
+    html+=`</table></div>`
+    return html;
+}
+
+const renderScript = () => {
+  return `<script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    </script>`;
 }
 
 
 export const renderIndex = (recetas: Array<Receta>) => {
   return `
-<html>
+  <html>
   ${head("Recetas List", "index")}
   <body>
     ${renderRecipes(recetas)}
   </body>
-</html>`;
+  </html>`;
 };
 
 

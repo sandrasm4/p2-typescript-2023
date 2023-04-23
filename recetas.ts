@@ -45,7 +45,6 @@ export class Digest {
 }
 
 export const loadRecetas = async (origen: string) => {
-  //Asian food
   const response = await fetch("https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType="+origen+"&imageSize=REGULAR");
   const { hits } = (await response.json()) as { hits: any[] };
   
@@ -66,32 +65,8 @@ export const loadRecetas = async (origen: string) => {
     mealType: hit.recipe.mealType,
     dishType: hit.recipe.dishType,
     digest: hit.recipe.digest.map((d: Digest) => new Digest(d.label, d.total, d.units))
-  }
- 
- /* */ 
+  } 
   ) ); 
-  
-  
-   /** 
-  //Indian food
-  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Indian&imageSize=REGULAR`);
-
-  //Mexican food
-  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Mexican&imageSize=REGULAR`);
-  
-  //Mediterranean food
-  const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=any&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8&cuisineType=Mediterranean&imageSize=REGULAR`);
-*/  
- 
+   
   return recetas;
 };
-
-//const buttonToBeClicked = document.getElementById("example-button");
-
-
-
-//https://developer.edamam.com/admin/applications/1409623323119?service_id=2555417725632
-
-//https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8
-
-//https://api.edamam.com/api/recipes/v2/b79327d05b8e5b838ad6cfd9576b30b6?type=public&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8
