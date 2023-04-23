@@ -2,8 +2,11 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: rgb(55, 57, 59);
       color:#ddd;
+      background-image:url(https://static.wixstatic.com/media/669e60_89ffc34e41674d2ea5bbd05240f0a115.jpg/v1/fill/w_640,h_852,al_t,q_85,usm_0.66_1.00_0.01,enc_auto/669e60_89ffc34e41674d2ea5bbd05240f0a115.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+     
     }
     .name {
       font-family: sans-serif;

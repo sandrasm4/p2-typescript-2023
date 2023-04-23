@@ -3,32 +3,9 @@ export class Receta {
   constructor( 
     public label: string, 
     public image: string,
-    public details: {
-        yieldV: string, 
-        dietLabels: string[],
-        healthLabels: string[],
-        cautions: string[],
-        ingredientLines: string[],
-        ingredients:{
-          text: string,
-          quantity: number,
-          measure: string,
-          food: string,
-          weight: number,
-          foodCategory: string,
-          image: string
-        }[],
-        calories: number,
-        totalWeight: number,
-        totalTime: number,
-        cuisineType: string[],
-        mealType: string[],
-        dishType: string[],
-        digest: Digest[],
-    }
+    public details: RecetaDetails,
   ){}   
 }
-
 
 export class RecetaDetails {
   constructor( 
@@ -36,7 +13,7 @@ export class RecetaDetails {
     public dietLabels: string[],
     public healthLabels: string[],
     public cautions: string[],
-    public ingredientLines: string[],
+    public instructions: string[],
     public ingredients:Ingredient[],
     public calories: number,
     public totalWeight: number,
@@ -50,7 +27,6 @@ export class RecetaDetails {
 
 export class Ingredient {
   constructor( 
-    public text: string,
     public quantity: number,
     public measure: string,
     public food: string,
@@ -79,21 +55,20 @@ export const loadRecetas = async (origen: string) => {
     dietLabels: hit.recipe.dietLabels,
     healthLabels: hit.recipe.healthLabels,
     cautions: hit.recipe.cautions,
-    ingredientLines: hit.recipe.ingredientLines,
-    ingredients: hit.recipe.ingredients,
+    instructions: hit.recipe.instructions,
+    ingredients: hit.recipe.ingredients.map((ingredient: Ingredient) => new Ingredient(
+      ingredient.quantity, ingredient.measure, ingredient.food,
+      ingredient.weight, ingredient.foodCategory, ingredient.image)),
     calories: hit.recipe.calories,
     totalWeight: hit.recipe.totalWeight,
     totalTime: hit.recipe.totalTime,
     cuisineType: hit.recipe.cuisineType,
     mealType: hit.recipe.mealType,
     dishType: hit.recipe.dishType,
-    digest: hit.recipe.digest,
+    digest: hit.recipe.digest.map((d: Digest) => new Digest(d.label, d.total, d.units))
   }
  
- /* ingredients: hit.recipe.ingredients.map(ingredient => new Ingredient(
-    ingredient.text, ingredient.quantity, ingredient.measure, ingredient.food,
-    ingredient.weight, ingredient.foodCategory, ingredient.image)),
-   */ 
+ /* */ 
   ) ); 
   
   

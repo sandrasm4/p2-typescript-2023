@@ -2,7 +2,7 @@ import { Receta, RecetaDetails } from "./recetas.js";
 const columnNum = 3;
 
 type tplotOptions = {
-  [key: string]: string
+  [key: string]: string;
 }
 
 let dietLabel: tplotOptions = {
@@ -15,45 +15,6 @@ let dietLabel: tplotOptions = {
 };
 
 
-
-let healthLabels : tplotOptions = {
-  "Alcohol-Cocktail":"",
-  "Alcohol-Free":"https://static.vecteezy.com/system/resources/previews/000/343/618/non_2x/alcohol-free-icon-vector.jpg",
-  "Celery-Free":"",
-  "Crustcean-Free":"",
-  "Dairy-Free":"",
-  "DASH":"",
-  "Egg-Free":"",
-  "Fish-Free":"",
-  "FODMAP-Free":"",
-  "Gluten-Free":"",
-  "Immuno-Supportive":"",
-  "Keto-Friendly":"",
-  "Kidney-Friendly":"",
-  "Kosher	kosher":"",
-  "Low Potassium":"",
-  "Low Sugar":"",
-  "Lupine-Free":"",
-  "Mediterranean":"",
-  "Mollusk-Free":"",
-  "Mustard-Free":"",
-  "No oil added":"",
-  "Paleo":"",
-  "Peanut-Free":"",
-  "Pescatarian":"",
-  "Pork-Free":"",
-  "Red-Meat-Free":"",
-  "Sesame-Free":"",
-  "Shellfish-Free":"",
-  "Soy-Free":"",
-  "Sugar-Conscious":"",
-  "Sulfite-Free":"",
-  "Tree-Nut-Free":"",
-  "Vegan":"",
-  "Vegetarian":"",
-  "Wheat-Free":"",
-}
-
 const head = (label: string, style: string) => `
 <head>
   <meta charset="UTF-8">
@@ -63,7 +24,7 @@ const head = (label: string, style: string) => `
   <link rel="stylesheet" href="${style}.css"/>
 </head>`;
 
-const renderRecetas = (recetas: Array<Receta>) => {
+const renderRecipes = (recetas: Array<Receta>) => {
   let cont = 0;
   let html = "";
   html += `
@@ -83,11 +44,10 @@ const renderRecetas = (recetas: Array<Receta>) => {
     }     
   };
     
-  html +=`</tr></table>`;
-  return html;
+  return html +`</tr></table>`;
 }
 
-const renderDetalles = (detail: RecetaDetails) => {
+const renderSpecifications = (detail: RecetaDetails) => {
   let html = "";
   html += `
   <div id="Specifications" class="tabcontent">
@@ -97,13 +57,11 @@ const renderDetalles = (detail: RecetaDetails) => {
       html+= `<td><img src="${dietLabel[label]}"/></td>`
     }
     html+=`</tr></table>
-    <p class="titulo">Health Labels:</p>
-    <table><tr>`
+    <p class="titulo">Health Labels:</p>`
     for(let label of detail.healthLabels){
-      html+= `<td><img src="${healthLabels[label]}"/></td>`
+      html+= `<p>${label}</p>`
     }
-    html+=`</tr></table>
-
+    html+=`
     <p>cautions:</p>
     <p>${detail.cautions}</p>
     <table><tr><td class="titulo">Calories</td><td class="titulo">Meal Type</td><td class="titulo">Dish Type</td></tr>
@@ -112,21 +70,53 @@ const renderDetalles = (detail: RecetaDetails) => {
     <td><img src="https://image.similarpng.com/very-thumbnail/2020/12/Vegetable-salad-icon-illustration.png"/></td></tr>
     <tr><td>${detail.calories}</td><td>${detail.mealType}</td><td>${detail.dishType}</td></tr>
     </table>
-  </div>
-  <div id="Ingredients" class="tabcontent">
-  
-
-
-
-  </div>
-  <div id="How" class="tabcontent">
-  
-
-
-  </div>
-`;
+    <p>Cuisine Type:${detail.cuisineType}</p>`
+    for(let d of detail.digest){
+      html+= `<p>${d.label}:${d.total}${d.units}</p>`
+    }  
+  html+=`</div>`
   return html;
 }
+
+const renderIngredients = (detail: RecetaDetails) => {
+  let html = "";
+  html += `
+  <div id="Ingredients" class="tabcontent">
+  <table>
+    <th>Image</th>
+    <th>Food</th>
+    <th>Text</th>
+    <th>Food Category</th>
+    <th>Quantity</th>
+    <th>Weight</th>`
+    for(let ingredient of detail.ingredients){
+      html+= `<tr><td><img src="${ingredient.image}"/></td>
+              <td>${ingredient.food}</td>
+              <td>${ingredient.foodCategory}</td>
+              <td>${ingredient.quantity + " " + ingredient.measure}</td>
+              <td>${ingredient.weight}</td></tr>`
+    }
+    html+=`</table></div>`;
+  return html;
+}
+const renderHow = (detail: RecetaDetails) => {
+  let html = "";
+  html += `
+  <div id="How" class="tabcontent">
+    <p>Yield:${detail.yieldV}</p>
+
+    <p>Total Time: ${detail.totalTime}</p>
+
+    <p>Instructions:</p>`
+    if(detail.instructions){
+      for(let inst of detail.instructions){
+        html += `<p>${inst}</p>`
+      }
+    }
+    html+=`</div>`
+    return html;
+  }
+
 
 const renderScript = () => {
   return `<script>
@@ -146,100 +136,19 @@ const renderScript = () => {
   </script>`;
 }
 
-/*
-<p class="titulo">yield:</p>
-    <p >${detail.yieldV}</p>
-
-  <p>totalTime:</p>
-  <p>${detail.totalTime}</p>
-  <p>cuisineType:</p>
-  <p>${detail.cuisineType}</p>
-   
-  <p>ingredientLines:</p>
-  <p>${detail.ingredientLines}</p>
-  <p>ingredients:</p>
-  <p>${detail.ingredients}</p>
-*/
-
 
 export const renderIndex = (recetas: Array<Receta>) => {
   return `
 <html>
   ${head("Recetas List", "index")}
   <body>
-    ${renderRecetas(recetas)}
+    ${renderRecipes(recetas)}
   </body>
 </html>`;
 };
 
-export const renderIndexStyle = () => {
-  return `
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: rgb(55, 57, 59);
-      color:#ddd;
-    }
-    .name {
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: .4rem;
-      border-bottom: 1px solid #ddd;
-    }
-    table{
-      width: 100%;
-      color:#ddd;
-      font-size: 20%;
-      
-      text-align: center;
-      border-collapse: collapse;
-      font-size: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    td {
-      border-left: 1px solid;
-      padding-top: 2%;
-      height: 33%;
-      width: 33%;
-    }
 
-    td:first-child {
-      border-left: transparent;
-    }
-
-    tr{
-      border-bottom: 1px solid;
-    }
-
-    tr:last-child {
-      border-bottom: transparent;
-    }
-
-
-    td:hover{
-      background-color: #dddddd27;
-    }
-
-    img{
-      padding: 5%;
-      border-radius: 10%;
-      height: 70%;
-      width: 70%;
-    }
-
-    .titulo{
-      color: antiquewhite;
-      font-size: 40px;
-      margin: 5%;
-      text-align: center;
-    }
-  `;
-};
-
-export const renderReceta = (receta: Receta) => {
+export const renderRecipe = (receta: Receta) => {
   return `
 <html>
   ${head("Recetas List", "receta")}
@@ -249,7 +158,9 @@ export const renderReceta = (receta: Receta) => {
     <button class="tablinks" onclick="openTab(event, 'Ingredients')">Ingredients</button>
     <button class="tablinks" onclick="openTab(event, 'How')">How to cook it!</button>
   </div>
-    ${renderDetalles(receta.details)}
+    ${renderSpecifications(receta.details)}
+    ${renderIngredients(receta.details)}
+    ${renderHow(receta.details)}
     ${renderScript()}
   </body>
 </html>`;

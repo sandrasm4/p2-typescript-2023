@@ -1,7 +1,13 @@
 
-export class NuticionIngredient {
+/**
+ * TODO la api da el analisis nutricional de cada ingrediente.
+ * Se podría ampliar el ejercicio haciendo que se pueda ver 
+ * el analisis de cada uno de los ingredientes de las recetas
+ **/
+
+
+/*export class NuticionIngredient {
   constructor( 
-    
   ) {}
 }
 
@@ -22,4 +28,4 @@ export const loadRecetas = async () => {
 
 //https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8
 
-//https://api.edamam.com/api/recipes/v2/b79327d05b8e5b838ad6cfd9576b30b6?type=public&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8
+//https://api.edamam.com/api/recipes/v2/b79327d05b8e5b838ad6cfd9576b30b6?type=public&app_id=2cfefb75&app_key=23d5542412e25bdd995694ef919bbbb8*/
