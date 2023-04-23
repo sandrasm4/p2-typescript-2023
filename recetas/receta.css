@@ -10,10 +10,6 @@
       background-size: cover;
     }
 
-    img{
-      height: 40%;
-      width: 40%;
-    }
 
     .titulo{
       color: rgb(49, 48, 47);
@@ -27,27 +23,92 @@
     }
 
     #how{
-      background-image: url(https://t4.ftcdn.net/jpg/05/76/67/61/360_F_576676130_i9JKIjlkCPvr8DFV9ZJ0C7tEXX8N4jXr.jpg);
+      background-image: url(https://st3.depositphotos.com/1558912/18317/i/600/depositphotos_183177126-stock-photo-food-background-on-white-wooden.jpg);
       background-size: cover;
-      background-position: bottom;
+      background-repeat: no-repeat;
+      background-position: top;
       min-height: 900px;
-      color: #f1f1f1;
       font-size: 25px;
+      display: none;
+    }
+
+    #how img {
+      height: 40px;
+      width: 40px;
+    }
+
+    #how td :first-child{
+      padding: 0;
+      margin: 0;
+      width: fit-content;
+      text-align: right;
+    }
+
+    #ingredients{
+      display: none;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 20%;
+      text-align: center;
+      background-image: url(https://global.utulsa.edu/wp-content/uploads/sites/15/2021/03/world-cuisine.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    
+
+    #ingredients th{
+      background-color: rgb(63, 65, 68);
+      color: #ddd;
     }
 
     #ingredients table{
       width: 100%;
-      align-items: center;
+      background-color: #dddddd97;
+      font-size: 700%;
     }
 
     #ingredients table td{
-      align-items: center;
+      text-align: center;
     }
 
     #ingredients img{
-      border-radius: 50%;
+      height: 30%;
+      width: 25%;
+      border-radius: 15%;
     }
     
+    #specifications img{
+      padding: 2px;
+      height: 50px;
+      width: 50px;
+    }
+
+    #specifications td{
+      text-align: center;
+    }
+
+    #specifications table{
+      position: relative;
+      margin-left: 20%;
+      margin-right: auto;
+    }
+
+    #diet img{
+      height: 30%;
+      width: 25%;
+    }
+
+    #nutrients{
+      display: none;
+      background-image: url(https://img.freepik.com/fotos-premium/alimento-que-es-fuente-natural-vitamina-b7_82893-13629.jpg?w=2000);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    #nutrients table{
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 150%;
+    }
 
 
     
@@ -86,4 +147,3 @@
   border: 1px solid #ccc;
   border-top: none;
 }
-  
